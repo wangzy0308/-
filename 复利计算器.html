@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>理财计算小工具</title>
+</head>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<body>
+<div>
+  <label>当前本金：</label><input type="number" id="storeMoney" placeholder="请输入"/>
+  <br>
+  <label>理财利率：</label><input type="text" id="rate" placeholder="请输入"/> %
+  <br>
+  <label>每年结余：</label><input type="number" id="salary" placeholder="请输入"/>
+  <br>
+  <label>结余增长：</label><input type="text" id="salaryAdd" placeholder="请输入"/> %
+  <br>
+  <label>计算年限：</label><input type="number" id="year" placeholder="请输入"/>
+  <button onclick="calu()">计算</button>
+  <button onclick="clear()">计算</button>
+  <div id="result">
+
+  </div>
+</div>
+</body>
+<script>
+	/**
+	 * -----------------------------------------------------------------------
+	 *  
+	 * Copyright © 2014-2020 wzy Co.,Ltd.
+	 *
+	 * The programs can not be copied and/or distributed without the express
+	 * permission of wzy Co.,Ltd.
+	 *
+	 *
+	 * @Author wangzhenyao@wzy.com
+	 * @Description 
+	 * @Date 2020/5/14 10:55
+	 **/
+  function calu(){
+    var storeMoney = Number(window.document.getElementById("storeMoney").value);
+    var rate = Number(window.document.getElementById("rate").value);
+    var salary = Number(window.document.getElementById("salary").value);
+    var year = Number(window.document.getElementById("year").value);
+    var capital = Number(window.document.getElementById("storeMoney").value);
+    var salaryAdd = Number(window.document.getElementById("salaryAdd").value);
+    for (var i = 1;i<=year;i++){
+      storeMoney = storeMoney+rate*storeMoney/100;
+      storeMoney+= salary;
+      capital+=salary;
+      salary = salary*(100+salaryAdd)/100;
+      var obj=document.createElement("p");
+      obj.innerHTML = "第"+i+"年后；总资产为："+storeMoney.toFixed(2)+"。总本金为："+capital.toFixed(2)+"。利息为："+(storeMoney-capital).toFixed(2);
+      window.document.getElementById("result").appendChild(obj);
+    }
+  }
+  
+  function clear(){
+    $("#result").html("");
+  }
+</script>
+</html>
